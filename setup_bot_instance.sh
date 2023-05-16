@@ -1,6 +1,8 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt install python3-pip -y
+sudo apt install python3.10-venv -y
 pip3 install psycopg2-binary
 git clone https://github.com/chyornyy/youtello.git 
 cd youtello

@@ -12,7 +12,6 @@ from aiogram.dispatcher.filters import Text, Command
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types.message import ContentType
 
-import config as cg
 import database as db
 
 load_dotenv()
