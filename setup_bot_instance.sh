@@ -5,8 +5,6 @@ sudo apt install python3-pip -y
 sudo apt install python3.10-venv -y
 git clone https://github.com/chyornyy/youtello.git 
 cd youtello
-python3 -m venv venv
-source venv/bin/activate
 pip3 install -r requirements.txt
 pip3 install psycopg2-binary
 nano .env
@@ -19,6 +17,9 @@ After=network.target
 [Service]
 User=admin
 WorkingDirectory=/home/admin/youtello/
-ExecStart=sudo /home/admin/youtello/python3 main.py
+ExecStart=python3 /home/admin/youtello/main.py
 [Install]
-WantedBy=multi-user.target" > /etc/systemd/system/bot.service'
+WantedBy=multi-user.target > /etc/systemd/system/bot.service'
+sudo systemctl start bot
+sudo systemctl status bot 
+sudo systemctl enable bot.service

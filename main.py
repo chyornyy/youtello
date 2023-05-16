@@ -36,6 +36,7 @@ class DownloadStates(StatesGroup):
 async def start_command(message: types.Message):
     user_login_data = message.from_user.username
     chat_id_data = f'{message.chat.id}'
+    command_type_data = 'start'
     await message.answer(
         'Welcome to the YouTube downloader bot.\n'
         'We hate advertising as much as you do. So there will  be no ads. At all.\n\n'
@@ -43,6 +44,7 @@ async def start_command(message: types.Message):
         '/about - About YouTello\n'
     )
     db.register_user(REGISTERED_USERS_TABLE, user_login_data, chat_id_data)
+    db.add_command_data_to_metrics(METRICS_DATA_TABLE, chat_id_data, command_type_data)
 
 
 @dp.message_handler(commands=['about'])
