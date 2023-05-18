@@ -83,7 +83,6 @@ async def download_video(message: types.Message):
                 except exceptions.MessageNotModified:
                     pass
 
-            
             caption = f"Here's your video, enjoy!\nTitle: {yt.title}"
             with open(filename, 'rb') as video_file:
                 await message.answer_video(video_file.read(), caption=caption)
