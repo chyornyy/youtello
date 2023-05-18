@@ -61,3 +61,7 @@ def get_active_users_list_for_mailing():
 
 def check_admin():
     pass
+
+
+def check_if_subscriber():
+    pass

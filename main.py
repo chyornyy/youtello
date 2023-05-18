@@ -56,6 +56,11 @@ async def about_command(message: types.Message):
     db.add_command_data_to_metrics(METRICS_DATA_TABLE, chat_id_data, command_type_data)
 
 
+@dp.message_handler(commands=['ping'])
+async def ping_command(message: types.Message):
+    await message.reply("pong")
+
+
 @dp.message_handler(content_types=[ContentType.TEXT])
 async def download_video(message: types.Message):
     """
@@ -100,11 +105,6 @@ async def download_video(message: types.Message):
                                            command_type_data_error)
     else:
         pass
-
-
-@dp.message_handler(commands=['ping'])
-async def ping_command(message: types.Message):
-    await message.answer("pong")
 
 
 if __name__ == "__main__":
