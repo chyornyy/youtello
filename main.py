@@ -104,7 +104,7 @@ async def download_video(message: types.Message):
 
 @dp.message_handler(commands=['ping'])
 async def ping_command(message: types.Message):
-    await message.reply("pong")
+    await message.answer("pong")
 
 
 if __name__ == "__main__":
