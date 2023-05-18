@@ -48,7 +48,7 @@ async def start_command(message: types.Message):
 
 
 @dp.message_handler(commands=['about'])
-async def help_command(message: types.Message):
+async def about_command(message: types.Message):
     chat_id_data = f'{message.chat.id}'
     command_type_data = 'about'
     response = "I'm Youtello - a YouTube downloader bot, which allows you to download videos from YouTube in 1080p quality. I don't have any advertising at all. Also i have the potential to support other video platforms like TikTok, Twitter, Instagram Reels, Vimeo, and more that will be added in the near future.\n\nSimply send me a link to the YouTube video that you want to download, and I will take care of the rest!"
@@ -100,6 +100,11 @@ async def download_video(message: types.Message):
                                            command_type_data_error)
     else:
         pass
+
+
+@dp.message_handler(commands=['ping'])
+async def ping_command(message: types.Message):
+    await message.reply("pong")
 
 
 if __name__ == "__main__":
