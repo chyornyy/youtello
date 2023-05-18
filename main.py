@@ -38,8 +38,8 @@ async def start_command(message: types.Message):
     chat_id_data = f'{message.chat.id}'
     command_type_data = 'start'
     await message.answer(
-        'Welcome to the YouTube downloader bot.\n'
-        'We hate advertising as much as you do. So there will  be no ads. At all.\n\n'
+        'Welcome to the YouTello downloader bot.\n'
+        'We hate advertising as much as you do. So there will be no ads. At all.\n\n'
         'Send me a link to a YouTube video and I will download it for you!\n\n'
         '/about - About YouTello\n'
     )
@@ -64,7 +64,9 @@ async def download_video(message: types.Message):
     user_login_data = message.from_user.username
     chat_id_data = f'{message.chat.id}'
     command_type_data = 'youtube_download'
+    command_type_data_error = 'youtube_download_error'
     url = message.text
+    filename = f"{user_login_data}.mp4"
     if "youtube.com" in url or "youtu.be" in url:
         try:
             yt = YouTube(url)
@@ -72,7 +74,7 @@ async def download_video(message: types.Message):
             response = f"Downloading...\nTitle: {yt.title}\nPlease wait..."
             progress = types.Message("<code>...</code>").message_id
             progress_message = await message.answer(response, parse_mode=ParseMode.HTML, reply_markup=types.InlineKeyboardMarkup())
-            video.download()
+            video.download(filename=f'{filename}')
             for i in range(10):
                 await asyncio.sleep(1)
                 increment = (i + 1) * 10
@@ -81,7 +83,7 @@ async def download_video(message: types.Message):
                 except exceptions.MessageNotModified:
                     pass
 
-            filename = f"{yt.title}.mp4"
+            
             caption = f"Here's your video, enjoy!\nTitle: {yt.title}"
             with open(filename, 'rb') as video_file:
                 await message.answer_video(video_file.read(), caption=caption)
@@ -94,6 +96,9 @@ async def download_video(message: types.Message):
                                            command_type_data)
         except Exception as e:
             await message.answer("Error: " + str(e))
+            db.add_command_data_to_metrics(METRICS_DATA_TABLE,
+                                           chat_id_data,
+                                           command_type_data_error)
     else:
         pass
 
